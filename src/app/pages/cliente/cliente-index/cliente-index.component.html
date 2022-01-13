@@ -1,0 +1,113 @@
+<div class="row">
+  <div class="col-sm-12">
+    <mat-card>
+      <div card-header class="iq-header-title">
+        <h4 class="card-title">Lista de clientes</h4>
+      </div>
+
+      <div class="row">
+        <div class="col">
+                    <span class="table-add float-right mb-3 mr-2">
+                        <button class="btn btn-primary" (click)="new()">
+                            <i class="ri-add-box-line"></i> Agregar
+                        </button>
+                    </span>
+        </div>
+      </div>
+
+      <div class="row" *ngIf="dataSource">
+        <div class="col-xs-12 col-xl-12">
+          <div class="row">
+            <div class="col-xs-12 col-xl-12">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Buscar</mat-label>
+                <input matInput (keyup)="filter($event)" placeholder="Digite aquí lo que desea buscar">
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <mat-table [dataSource]="dataSource" matSort>
+                <!-- Column -->
+                <ng-container matColumnDef="id">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>#</mat-header-cell>
+                  <mat-cell *matCellDef="let element">
+                    <p class="text-truncate font-weight-600">{{ element.id }}</p>
+                  </mat-cell>
+                </ng-container>
+
+                <!-- Column -->
+                <ng-container matColumnDef="nombre">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</mat-header-cell>
+                  <mat-cell *matCellDef="let element">
+                    <p class="text-truncate font-weight-600">{{ element.nombre }}</p>
+                  </mat-cell>
+                </ng-container>
+
+                <!-- Column -->
+                <ng-container matColumnDef="direccion">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Dirección</mat-header-cell>
+                  <mat-cell *matCellDef="let element">
+                    <p class="text-truncate font-weight-600">{{ element.direccion }}</p>
+                  </mat-cell>
+                </ng-container>
+
+                <!-- Column -->
+                <ng-container matColumnDef="telefono">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Tel</mat-header-cell>
+                  <mat-cell *matCellDef="let element">
+                    <p class="text-truncate font-weight-600">{{ element.telefono }}</p>
+                  </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="acciones">
+                  <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                  <mat-cell *matCellDef="let element">
+                    <div fxFlex="row" fxLayoutAlign="end center">
+                      <button mat-icon-button class="btn btn-link mb-3 mr-1"
+                              [matMenuTriggerFor]="moreMenu" aria-label="More"
+                              (click)="$event.stopPropagation();">
+                        <i class="ri-more-2-fill"></i>
+                      </button>
+
+                      <mat-menu #moreMenu="matMenu">
+                        <div class="dropdown-divider"></div>
+                        <button mat-menu-item type="button" class="btn mr-1"
+                                (click)="edit(element._id)">
+                          <!--<i class="ri-edit-2-line"></i>-->Editar
+                        </button>
+                        <div class="dropdown-divider"></div>
+                        <button mat-menu-item type="button" class="btn mr-1"
+                                (click)="delete(element)">
+                          <!--<i class="ri-delete-bin-2-line"></i>-->Eliminar
+                        </button>
+                      </mat-menu>
+                    </div>
+
+                  </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let element; columns: displayedColumns;" class="element"
+                         [@animate]="{value:'*',params:{y:'100%'}}"></mat-row>
+              </mat-table>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <mat-paginator [pageSizeOptions]="pageSizeOptions" [pageSize]="pageSize"
+                             class="sticky left-0"></mat-paginator>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <alert type="light" *ngIf="!dataSource">
+        <div class="iq-alert-icon">
+          <i class="ri-alert-line"></i>
+        </div>
+        <div class="iq-alert-text"><b>Atención!</b> aún no existen registros.</div>
+      </alert>
+    </mat-card>
+  </div>
+</div>
