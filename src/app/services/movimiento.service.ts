@@ -28,6 +28,6 @@ export class MovimientoService {
   }
 
   report(data): Observable<any> {
-    return this.http.post(this.URL_API + '/search-filter', data);
+    return this.http.post(this.URL_API + '/search/filters', data, { responseType: 'arraybuffer' as 'json'});
   }
 }

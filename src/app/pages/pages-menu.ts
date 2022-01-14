@@ -73,7 +73,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
     ],
   }, */
-  {
+  /*{
     title: 'Forms',
     icon: 'edit-2-outline',
     children: [
@@ -94,7 +94,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/pages/forms/datepicker',
       },
     ],
-  },
+  },*/
   /* {
     title: 'UI Features',
     icon: 'keypad-outline',

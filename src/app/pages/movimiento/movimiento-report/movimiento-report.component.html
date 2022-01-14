@@ -1,1 +1,47 @@
-<p>movimiento-report works!</p>
+<div class="row">
+  <div class="col-lg-6">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Exportar movimientos por filtros</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <form class="mt-2 was-validated" name="form" [formGroup]="form">
+          <div class="col-xs-12 col-xl-12">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Nombre cliente</mat-label>
+              <input type="text" matInput formControlName="nombreCliente">
+              <button matSuffix mat-icon-button [disabled]="form.get('nombreCliente').value == ''"
+                      aria-label="Search" (click)="searchCliente()">
+                <mat-icon>search</mat-icon>
+              </button>
+            </mat-form-field>
+          </div>
+          <div class="col-xs-12 col-xl-12" *ngIf="cliente">
+            <mat-list>
+              <mat-list-item class="item"><b>Nombre:</b> {{ cliente?.nombre }} </mat-list-item>
+              <mat-list-item class="item"><b>Telefono:</b> {{ cliente?.telefono }}</mat-list-item>
+              <mat-list-item class="item"><b>Direccion:</b> {{ cliente?.direccion }}</mat-list-item>
+            </mat-list>
+          </div>
+          <div class="col-xs-12 col-xl-12">
+            <mat-form-field appearance="outline" class="w-50">
+              <mat-label>Fecha inicio</mat-label>
+              <input matInput [matDatepicker]="picker1" formControlName="fechaInicio">
+              <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+              <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="w-50">
+              <mat-label>Fecha fin</mat-label>
+              <input matInput [matDatepicker]="picker2" formControlName="fechaFin">
+              <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+              <mat-datepicker #picker2></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </form>
+      </mat-card-content>
+      <mat-card-actions align="end">
+        <button mat-button (click)="search()" color="primary" [disabled]="!form.valid">GENERAR</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

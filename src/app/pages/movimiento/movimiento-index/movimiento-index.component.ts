@@ -5,7 +5,6 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { debounceTime } from 'rxjs/operators';
-
 import { MovimientoService } from '../../../services/movimiento.service';
 
 import Swal from 'sweetalert2';
@@ -16,6 +15,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./movimiento-index.component.scss'],
 })
 export class MovimientoIndexComponent implements OnInit {
+  public table: any = null;
   displayedColumns: string[] = ['id', 'cuenta', 'fecha', 'tipo', 'valor', 'acciones'];
   dataSource: any;
 

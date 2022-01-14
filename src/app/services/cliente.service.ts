@@ -26,4 +26,8 @@ export class ClienteService {
   delete(id: String): Observable<any> {
     return this.http.delete(this.URL_API + '/delete/' + id);
   }
+
+  searchByName(data): Observable<any> {
+    return this.http.get(this.URL_API + '/search/name/' + data);
+  }
 }
