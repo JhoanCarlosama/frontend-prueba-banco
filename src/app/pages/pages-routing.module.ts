@@ -69,15 +69,6 @@ const routes: Routes = [{
         .then(m => m.MiscellaneousModule),
     },
     /// creacion ejemplo banco
-    /*{
-      path: 'cliente',
-      children: [
-        {
-          path: '',
-          loadChildren: () => import('./cliente/cliente.module').then(m => m.ClienteModule),
-        },
-      ],
-    },*/
     {
       path: 'cliente',
       loadChildren: () => import('./cliente/cliente.module')
@@ -87,6 +78,11 @@ const routes: Routes = [{
       path: 'cuenta',
       loadChildren: () => import('./cuenta/cuenta.module')
         .then(m => m.CuentaModule),
+    },
+    {
+      path: 'movimiento',
+      loadChildren: () => import('./movimiento/movimiento.module')
+        .then(m => m.MovimientoModule),
     },
     {
       path: '',

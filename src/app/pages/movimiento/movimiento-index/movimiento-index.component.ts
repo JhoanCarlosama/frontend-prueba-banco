@@ -6,18 +6,17 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { debounceTime } from 'rxjs/operators';
 
-import { ClienteService } from '../../../services/cliente.service';
-
+import { MovimientoService } from '../../../services/movimiento.service';
 
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'ngx-cliente-index',
-  templateUrl: './cliente-index.component.html',
-  styleUrls: ['./cliente-index.component.scss'],
+  selector: 'ngx-movimiento-index',
+  templateUrl: './movimiento-index.component.html',
+  styleUrls: ['./movimiento-index.component.scss'],
 })
-export class ClienteIndexComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'nombre', 'direccion', 'telefono', 'acciones'];
+export class MovimientoIndexComponent implements OnInit {
+  displayedColumns: string[] = ['id', 'cuenta', 'fecha', 'tipo', 'valor', 'acciones'];
   dataSource: any;
 
   searchCtrl = new FormControl();
@@ -42,7 +41,7 @@ export class ClienteIndexComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private clienteService: ClienteService,
+    private movimientoService: MovimientoService,
   ) { }
 
   ngOnInit(): void {
@@ -71,7 +70,7 @@ export class ClienteIndexComponent implements OnInit {
   getIndex() {
     this.getLoading('Cargando información!', 'Por fav or espere un momento.');
 
-    this.clienteService.list().subscribe(response => {
+    this.movimientoService.list().subscribe(response => {
       if (response) {
         this.dataSource = new MatTableDataSource(response);
         this.dataSource.sort = this.sort;
@@ -90,11 +89,11 @@ export class ClienteIndexComponent implements OnInit {
   }
 
   new() {
-    this.router.navigate(['pages/cliente/new']).then();
+    this.router.navigate(['pages/movimiento/new']).then();
   }
 
-  edit(id) {
-    this.router.navigate(['pages/cliente/edit/' + id]).then();
+  /*edit(id) {
+    this.router.navigate(['pages/movimiento/edit/' + id]).then();
   }
 
   delete(id) {
@@ -109,12 +108,12 @@ export class ClienteIndexComponent implements OnInit {
       cancelButtonText: 'Cancelar',
     }).then((result) => {
       if (result.value) {
-        this.clienteService.delete(id).subscribe(response => {
+        this.cmovimientoService.delete(id).subscribe(response => {
           this.getMessage(response);
 
           this.getIndex();
         });
       }
     });
-  }
+  }*/
 }

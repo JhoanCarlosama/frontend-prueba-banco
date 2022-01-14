@@ -6,8 +6,8 @@ import { environment } from '../../environments/environment';
 @Injectable({
   providedIn: 'root',
 })
-export class ClienteService {
-  readonly URL_API = environment.apiUrl + '/cliente';
+export class CuentaService {
+  readonly URL_API = environment.apiUrl + '/cuenta';
 
   constructor( private http: HttpClient ) { }
 

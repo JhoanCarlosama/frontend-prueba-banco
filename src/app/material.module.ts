@@ -15,6 +15,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
+import { MatListModule } from '@angular/material/list';
+
 
 
 @NgModule({
@@ -34,6 +36,7 @@ import { MatCardModule } from '@angular/material/card';
     MatCheckboxModule,
     MatSelectModule,
     MatCardModule,
+    MatListModule,
   ],
   exports: [
     CommonModule,
@@ -50,6 +53,7 @@ import { MatCardModule } from '@angular/material/card';
     MatCheckboxModule,
     MatSelectModule,
     MatCardModule,
+    MatListModule,
   ],
 })
 

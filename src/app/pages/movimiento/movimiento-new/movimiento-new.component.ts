@@ -2,39 +2,52 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { ClienteService } from '../../../services/cliente.service';
 import { CuentaService } from '../../../services/cuenta.service';
+import { MovimientoService } from '../../../services/movimiento.service';
 
 import Swal from 'sweetalert2';
+import { DatePipe } from '@angular/common';
 
 @Component({
-  selector: 'ngx-cuenta-new',
-  templateUrl: './cuenta-new.component.html',
-  styleUrls: ['./cuenta-new.component.scss'],
+  selector: 'ngx-movimiento-new',
+  templateUrl: './movimiento-new.component.html',
+  styleUrls: ['./movimiento-new.component.scss'],
+  providers: [DatePipe],
 })
-export class CuentaNewComponent implements OnInit {
+export class MovimientoNewComponent implements OnInit {
+  public date = new Date();
+  public fechaActual: any;
 
-  clientes: any;
+  cuentas: any;
 
   form: FormGroup;
+
+  public tipos = [
+    { value: 'CREDITO', name: 'CREDITO' },
+    { value: 'DEBITO', name: 'DEBITO' },
+  ];
 
   constructor(
     private router: Router,
     private _formBuilder: FormBuilder,
-    private clienteService: ClienteService,
-    private cuentaService: CuentaService,
+    private ctaService: CuentaService,
+    private mvtoService: MovimientoService,
+    private datePipe: DatePipe,
   ) { }
 
   ngOnInit(): void {
+    this.fechaActual = this.datePipe.transform(this.date, 'dd-MM-yyyy hh:mm a');
+
     this.form = this._formBuilder.group({
-      numero: new FormControl ('', [Validators.required]),
-      saldo: new FormControl ('', [Validators.required]),
-      cliente: new FormControl ('', [Validators.required]),
+      tipo: new FormControl ('', [Validators.required]),
+      fecha: new FormControl (this.date, [Validators.required]),
+      valor: new FormControl ('', [Validators.required]),
+      cuenta: new FormControl ('', [Validators.required]),
     });
 
-    this.clienteService.list().subscribe(response => {
+    this.ctaService.list().subscribe(response => {
       if (response) {
-        this.clientes = response;
+        this.cuentas = response;
       }
     });
   }
@@ -60,7 +73,7 @@ export class CuentaNewComponent implements OnInit {
   new() {
     this.getLoading('Registrando información!', 'Por favor espere un momento.');
     if (this.form.valid) {
-      this.cuentaService.createOrUpdate(this.form.value).subscribe(response => {
+      this.mvtoService.createOrUpdate(this.form.value).subscribe(response => {
         if (response) {
           this.back();
         }
@@ -79,6 +92,6 @@ export class CuentaNewComponent implements OnInit {
   }
 
   back() {
-    this.router.navigate(['pages/cuenta/index']).then();
+    this.router.navigate(['pages/movimiento/index']).then();
   }
 }

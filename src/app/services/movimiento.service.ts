@@ -6,8 +6,8 @@ import { environment } from '../../environments/environment';
 @Injectable({
   providedIn: 'root',
 })
-export class ClienteService {
-  readonly URL_API = environment.apiUrl + '/cliente';
+export class MovimientoService {
+  readonly URL_API = environment.apiUrl + '/movimiento';
 
   constructor( private http: HttpClient ) { }
 
@@ -25,5 +25,9 @@ export class ClienteService {
 
   delete(id: String): Observable<any> {
     return this.http.delete(this.URL_API + '/delete/' + id);
+  }
+
+  report(data): Observable<any> {
+    return this.http.post(this.URL_API + '/search-filter', data);
   }
 }

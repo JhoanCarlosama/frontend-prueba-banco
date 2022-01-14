@@ -2,7 +2,7 @@
   <div class="col-sm-12">
     <mat-card>
       <div card-header class="iq-header-title">
-        <h4 class="card-title">Lista de clientes</h4>
+        <h4 class="card-title">Movimientos</h4>
       </div>
 
       <div class="row">
@@ -37,26 +37,34 @@
                 </ng-container>
 
                 <!-- Column -->
-                <ng-container matColumnDef="nombre">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</mat-header-cell>
+                <ng-container matColumnDef="cuenta">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Nro. cuenta</mat-header-cell>
                   <mat-cell *matCellDef="let element">
-                    <p class="text-truncate font-weight-600">{{ element.nombre }}</p>
+                    <p class="text-truncate font-weight-600">{{ element.cuenta.numero }}</p>
                   </mat-cell>
                 </ng-container>
 
                 <!-- Column -->
-                <ng-container matColumnDef="direccion">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header>Dirección</mat-header-cell>
+                <ng-container matColumnDef="fecha">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Fecha transacción</mat-header-cell>
                   <mat-cell *matCellDef="let element">
-                    <p class="text-truncate font-weight-600">{{ element.direccion }}</p>
+                    <p class="text-truncate font-weight-600">{{ element.fecha | date:'short' }}</p>
                   </mat-cell>
                 </ng-container>
 
                 <!-- Column -->
-                <ng-container matColumnDef="telefono">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header>Tel</mat-header-cell>
+                <ng-container matColumnDef="tipo">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Tipo</mat-header-cell>
                   <mat-cell *matCellDef="let element">
-                    <p class="text-truncate font-weight-600">{{ element.telefono }}</p>
+                    <p class="text-truncate font-weight-600">{{ element.tipo }}</p>
+                  </mat-cell>
+                </ng-container>
+
+                <!-- Column -->
+                <ng-container matColumnDef="valor">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Valor</mat-header-cell>
+                  <mat-cell *matCellDef="let element">
+                    <p class="text-truncate font-weight-600">{{ element.valor }}</p>
                   </mat-cell>
                 </ng-container>
 

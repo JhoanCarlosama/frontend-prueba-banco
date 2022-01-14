@@ -14,8 +14,22 @@ export const MENU_ITEMS: NbMenuItem[] = [
   {
     title: 'Cuentas',
     icon: 'shopping-cart-outline',
-    link: '/pages/cuentas',
+    link: '/pages/cuenta/index',
     home: true,
+  },
+  {
+    title: 'Movimientos',
+    icon: 'layout-outline',
+    children: [
+      {
+        title: 'Listado',
+        link: '/pages/movimiento/index',
+      },
+      {
+        title: 'Reportes',
+        link: '/pages/movimiento/report',
+      },
+    ],
   },
   /* {
     title: 'E-commerce',
@@ -58,7 +72,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/pages/layout/tabs',
       },
     ],
-  },
+  }, */
   {
     title: 'Forms',
     icon: 'edit-2-outline',
@@ -81,7 +95,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
     ],
   },
-  {
+  /* {
     title: 'UI Features',
     icon: 'keypad-outline',
     link: '/pages/ui-features',
