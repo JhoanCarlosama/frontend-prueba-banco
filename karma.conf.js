@@ -34,12 +34,14 @@ module.exports = function (config) {
         flags: ['--no-sandbox']
       }
     },
+
+    browsers: ['ChromeHeadless'],
     singleRun: false
   };
 
-  if (process.env.TRAVIS) {
+  /*if (process.env.TRAVIS) {
     configuration.browsers = ['Chrome_travis_ci'];
-  }
+  }*/
 
   config.set(configuration);
 };
