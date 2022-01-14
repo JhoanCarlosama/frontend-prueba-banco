@@ -17,6 +17,7 @@ import { DatePipe } from '@angular/common';
 export class MovimientoNewComponent implements OnInit {
   public date = new Date();
   public fechaActual: any;
+  public bloquearBoton = false;
 
   cuentas: any;
 
@@ -93,5 +94,24 @@ export class MovimientoNewComponent implements OnInit {
 
   back() {
     this.router.navigate(['pages/movimiento/index']).then();
+  }
+
+  verificarValorCuenta(e) {
+    if (e) {
+      if (this.form.value.tipo === 'CREDITO') {
+        const excedente =  e.saldo - this.form.value.valor;
+
+        if (Math.sign(excedente) === -1) {
+          this.bloquearBoton = true;
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: '¡Error!.',
+            html: 'El valor que está a punto de guardar dejará el saldo de la cuenta en negativo',
+            showConfirmButton: true,
+          }).then();
+        }
+      }
+    }
   }
 }
