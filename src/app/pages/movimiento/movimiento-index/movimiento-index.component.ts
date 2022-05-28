@@ -92,7 +92,7 @@ export class MovimientoIndexComponent implements OnInit {
     this.router.navigate(['pages/movimiento/new']).then();
   }
 
-  /*edit(id) {
+  edit(id) {
     this.router.navigate(['pages/movimiento/edit/' + id]).then();
   }
 
@@ -108,12 +108,12 @@ export class MovimientoIndexComponent implements OnInit {
       cancelButtonText: 'Cancelar',
     }).then((result) => {
       if (result.value) {
-        this.cmovimientoService.delete(id).subscribe(response => {
+        this.movimientoService.delete(id).subscribe(response => {
           this.getMessage(response);
 
           this.getIndex();
         });
       }
     });
-  }*/
+  }
 }

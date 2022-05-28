@@ -55,10 +55,11 @@ export class CuentaEditComponent implements OnInit {
 
   getMessage(response) {
     Swal.fire({
-      position: 'top-end',
       icon: response.type,
-      title: response.message,
+      title: response.title,
+      text: response.message,
       showConfirmButton: true,
+      timer: 1500,
     }).then();
   }
 
@@ -66,7 +67,7 @@ export class CuentaEditComponent implements OnInit {
     this.getLoading('Obteniendo información!', 'Por favor espere un momento.');
 
     this.cuentaService.show(id).subscribe(response => {
-      this.cuenta = response;
+      this.cuenta = response.data;
 
       this.form.patchValue({
         id: this.cuenta.id,
@@ -86,7 +87,7 @@ export class CuentaEditComponent implements OnInit {
       this.clienteService.show(this.form.value.cliente).subscribe(responseCliente => {
         if (responseCliente) {
           this.form.patchValue({
-            cliente: responseCliente,
+            cliente: responseCliente.data,
           });
 
           // guarda el registro

@@ -88,8 +88,7 @@
                 </ng-container>
 
                 <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                <mat-row *matRowDef="let element; columns: displayedColumns;" class="element"
-                         [@animate]="{value:'*',params:{y:'100%'}}"></mat-row>
+                <mat-row *matRowDef="let element; columns: displayedColumns;" class="element"></mat-row>
               </mat-table>
             </div>
           </div>

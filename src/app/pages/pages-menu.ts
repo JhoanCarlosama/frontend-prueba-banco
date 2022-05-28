@@ -7,26 +7,28 @@ export const MENU_ITEMS: NbMenuItem[] = [
   },
   {
     title: 'Clientes',
-    icon: 'shopping-cart-outline',
+    icon: 'people-outline',
     link: '/pages/cliente/index',
     home: true,
   },
   {
     title: 'Cuentas',
-    icon: 'shopping-cart-outline',
+    icon: 'file-text-outline',
     link: '/pages/cuenta/index',
     home: true,
   },
   {
     title: 'Movimientos',
-    icon: 'layout-outline',
+    icon: 'credit-card-outline',
     children: [
       {
         title: 'Listado',
+        icon: 'menu-2-outline',
         link: '/pages/movimiento/index',
       },
       {
         title: 'Reportes',
+        icon: 'bar-chart-outline',
         link: '/pages/movimiento/report',
       },
     ],

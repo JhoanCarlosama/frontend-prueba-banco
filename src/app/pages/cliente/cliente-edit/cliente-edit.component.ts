@@ -44,10 +44,11 @@ export class ClienteEditComponent implements OnInit {
 
   getMessage(response) {
     Swal.fire({
-      position: 'top-end',
       icon: response.type,
-      title: response.message,
+      title: response.title,
+      text: response.message,
       showConfirmButton: true,
+      timer: 1500,
     }).then();
   }
 
@@ -55,7 +56,7 @@ export class ClienteEditComponent implements OnInit {
     this.getLoading('Obteniendo información!', 'Por favor espere un momento.');
 
     this.clienteService.show(id).subscribe(response => {
-      this.cliente = response;
+      this.cliente = response.data;
 
       this.form.patchValue({
         id: this.cliente.id,
