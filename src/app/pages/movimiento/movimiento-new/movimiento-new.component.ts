@@ -17,7 +17,6 @@ import { DatePipe } from '@angular/common';
 export class MovimientoNewComponent implements OnInit {
   public date = new Date();
   public fechaActual: any;
-  public bloquearBoton = false;
 
   cuentas: any;
 
@@ -64,23 +63,43 @@ export class MovimientoNewComponent implements OnInit {
 
   getMessage(response) {
     Swal.fire({
-      position: 'top-end',
       icon: response.type,
-      title: response.message,
+      title: response.title,
+      text: response.message,
       showConfirmButton: true,
+      timer: 1500,
     }).then();
   }
 
   new() {
-    this.getLoading('Registrando información!', 'Por favor espere un momento.');
     if (this.form.valid) {
-      this.mvtoService.createOrUpdate(this.form.value).subscribe(response => {
-        if (response) {
-          this.back();
-        }
+      if (this.verificarValorCuenta(this.form.value.cuenta)) {
+        Swal.fire({
+          icon: 'error',
+          title: '¡Error en la solicitud!.',
+          html: 'El valor que está a intenta guardar dejaría el saldo de la cuenta en negativo',
+          showConfirmButton: true,
+        }).then();
+      } else {
+        this.getLoading('Registrando información!', 'Por favor espere un momento.');
+        const data = {
+          tipo: this.form.value.tipo,
+          newBalance: this.form.value.valor,
+          idCuenta: this.form.value.cuenta.id,
+        };
 
-        this.getMessage(response);
-      });
+        this.ctaService.increaseAndDecreaseBalance(data).subscribe(responseCta => {
+          if (responseCta.status === 200) {
+            this.mvtoService.createOrUpdate(this.form.value).subscribe(response => {
+              if (response) {
+                // this.back();
+              }
+            });
+
+            this.getMessage(responseCta);
+          }
+        });
+      }
     } else {
       Swal.fire({
         position: 'top-end',
@@ -102,14 +121,9 @@ export class MovimientoNewComponent implements OnInit {
         const excedente =  e.saldo - this.form.value.valor;
 
         if (Math.sign(excedente) === -1) {
-          this.bloquearBoton = true;
-          Swal.fire({
-            position: 'top-end',
-            icon: 'error',
-            title: '¡Error!.',
-            html: 'El valor que está a punto de guardar dejará el saldo de la cuenta en negativo',
-            showConfirmButton: true,
-          }).then();
+          return true;
+        } else {
+          return false;
         }
       }
     }

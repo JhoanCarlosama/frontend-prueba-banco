@@ -50,10 +50,11 @@ export class CuentaNewComponent implements OnInit {
 
   getMessage(response) {
     Swal.fire({
-      position: 'top-end',
       icon: response.type,
-      title: response.message,
+      title: response.title,
+      text: response.message,
       showConfirmButton: true,
+      timer: 1500,
     }).then();
   }
 

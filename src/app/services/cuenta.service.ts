@@ -26,4 +26,8 @@ export class CuentaService {
   delete(id: String): Observable<any> {
     return this.http.delete(this.URL_API + '/delete/' + id);
   }
+
+  increaseAndDecreaseBalance(data: any): Observable<any> {
+    return this.http.post(this.URL_API + '/increase-decrease/balance', data);
+  }
 }

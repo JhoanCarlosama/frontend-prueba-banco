@@ -33,10 +33,9 @@ export class MovimientoReportComponent implements OnInit {
     });
   }
 
-  search() {
+  generateExcel() {
     if (new Date(this.form.value.fechaInicio) > this.fechaActual) {
       Swal.fire({
-        position: 'top-end',
         icon: 'error',
         title: '¡Error!',
         html: 'La fecha inicial no debe ser mayor a la fecha actual',
@@ -44,14 +43,19 @@ export class MovimientoReportComponent implements OnInit {
       }).then();
     } else if (this.form.value.fechaFin < this.form.value.fechaInicio) {
       Swal.fire({
-        position: 'top-end',
         icon: 'error',
         title: '¡Error!',
         html: 'La fecha final debe ser mayor a la fecha inicial',
         showConfirmButton: true,
       }).then();
     } else {
-      this.movimientoService.report(this.form.value).subscribe(response => {
+      const data = {
+        idCliente: this.cliente.id,
+        fechaInicio: this.form.value.fechaInicio,
+        fechaFin: this.form.value.fechaFin,
+      };
+
+      this.movimientoService.report(data).subscribe(response => {
         if (response) {
           const file = new Blob([response], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64'});
           const fileUrl = URL.createObjectURL(file);
@@ -59,7 +63,6 @@ export class MovimientoReportComponent implements OnInit {
         }
 
         Swal.fire({
-          position: 'top-end',
           icon: 'success',
           title: '¡Perfecto!',
           html: 'El reporte se generó exitosamente.',
@@ -72,8 +75,26 @@ export class MovimientoReportComponent implements OnInit {
 
   searchCliente() {
     this.clienteService.searchByName(this.form.value.nombreCliente).subscribe(response => {
-      if (response) {
-        this.cliente = response;
+      if (response.status === 200) {
+        this.cliente = response.data;
+
+        Swal.fire({
+          icon: response.type,
+          title: response.title,
+          html: response.message,
+          showConfirmButton: true,
+          timer: 1500,
+        }).then();
+      } else {
+        this.cliente = null;
+
+        Swal.fire({
+          icon: response.type,
+          title: response.title,
+          html: response.message,
+          showConfirmButton: true,
+          timer: 1500,
+        }).then();
       }
     });
   }
