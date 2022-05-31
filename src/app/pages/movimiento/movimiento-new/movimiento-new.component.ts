@@ -90,7 +90,15 @@ export class MovimientoNewComponent implements OnInit {
 
         this.ctaService.increaseAndDecreaseBalance(data).subscribe(responseCta => {
           if (responseCta.status === 200) {
-            this.mvtoService.createOrUpdate(this.form.value).subscribe(response => {
+            const dataCta = {
+              tipo: this.form.value.tipo,
+              fecha: this.form.value.fecha,
+              valor: this.form.value.valor,
+              cuenta: responseCta.data,
+            };
+
+            /*this.mvtoService.createOrUpdate(this.form.value).subscribe(response => {*/
+            this.mvtoService.createOrUpdate(dataCta).subscribe(response => {
               if (response) {
                 // this.back();
               }
